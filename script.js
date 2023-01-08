@@ -1,6 +1,5 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 const symbols = ["!", "@", "#", "$", "%", "&"];
 const alphabet = [
@@ -82,7 +81,7 @@ function generatePassword(array) {
           break;
         }
       case false:
-        // User declined to add lowercase letters, move to the next step
+        // User declined to add uppercase letters, move to the next step
         break;
       case null:
         break;
@@ -102,19 +101,20 @@ function generatePassword(array) {
           break;
         }
       case false:
-        // User declined to add lowercase letters, move to the next step
+        // User declined to add numbers, move to the next step
         break;
       case null:
         break;
     }
     const addCharacters = confirm("Do you want to add special characters?");
+    if (addCharacters === true) {
+
     switch (addCharacters) {
       case true:
         const numCharacters = prompt(
           "How many special characters would you like to add?"
         );
         if (numCharacters === null) {
-          // User cancelled the prompt, move to the next step
           break;
         } else {
           for (let index = 0; index < numCharacters; index++) {
@@ -124,16 +124,20 @@ function generatePassword(array) {
           break;
         }
       case false:
-        // User declined to add lowercase letters, move to the next step
         break;
       case null:
         break;
     }
+  }
+  else {
+    return alert("Please select at least one category");
+  }
+
     shuffle(passwordParts);
     const password = passwordParts.join("");
     return password;
   } else {
-    return prompt("Password length must be at least 8 characters!");
+    return confirm("Password length must be at least 8 characters!");
   }
 }
 
