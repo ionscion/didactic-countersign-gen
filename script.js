@@ -30,8 +30,16 @@ const alphabet = [
   "y",
   "z",
 ];
+//object
+// const userInputs = {
+//   passwordLength: prompt("How long would you like your password to be? Must be between 8 and 128 characters"),
+//   addLowerLetters: confirm("Do you want to add lowercase letters?"),
+//   addUpperLetters: confirm("Do you want to add uppercase letters?"),
+//   addNumbers: confirm("Do you want to add numbers?"),
+//   addCharacters: confirm("Do you want to add special characters?")
+// };
 
-function generateRandom(array) {
+function generateRandom() {
   let passwordParts = [];
   const passwordLength = prompt(
     "How long would you like your password to be? Must be between 8 and 128 characters"
@@ -43,7 +51,7 @@ function generateRandom(array) {
     const addLowerLetters = confirm("Do you want to add lowercase letters?");
     switch (addLowerLetters) {
       case true:
-        const numLowerLetters = (getRandomInt(1,6));
+        const numLowerLetters = (getRandomInt(1,5));
           console.log(`random lower: ${numLowerLetters}`);
         for (let i = 0; i < numLowerLetters; i++) {
           const lowerLetter =
@@ -56,13 +64,14 @@ function generateRandom(array) {
       case false:
         break;
       case null:
+        remainingLength = passwordLength;
         break;
     }
 
     const addUpperLetters = confirm("Do you want to add uppercase letters?");
     switch (addUpperLetters) {
       case true:
-        const numUpperLetters = (getRandomInt(1,6));
+        const numUpperLetters = (getRandomInt(1,5));
         console.log(`random uppers: ${numUpperLetters}`);
         for (let i = 0; i < numUpperLetters; i++) {
           const upperLetter =
@@ -72,6 +81,13 @@ function generateRandom(array) {
         remainingLength -= numUpperLetters;
         break;
       case false:
+        const numLowerLettersAgain = remainingLength;
+          console.log(`random lower: ${numLowerLettersAgain}`);
+        for (let i = 0; i < numLowerLettersAgain; i++) {
+          const numLowerLetAgain =
+            alphabet[Math.floor(Math.random() * alphabet.length)];
+          passwordParts.push(numLowerLetAgain);
+        }
         break;
       case null:
         break;
@@ -80,8 +96,8 @@ function generateRandom(array) {
     const addNumbers = confirm("Do you want to add numbers?");
     switch (addNumbers) {
       case true:
-        const numNumbers = (getRandomInt(1,6));
-        console.log(`randome numbers: ${numNumbers}`);
+        const numNumbers = (getRandomInt(1,5));
+        console.log(`random numbers: ${numNumbers}`);
         for (let i = 0; i < numNumbers; i++) {
           const num = numbers[Math.floor(Math.random() * numbers.length)];
           passwordParts.push(num);
@@ -106,6 +122,13 @@ function generateRandom(array) {
         remainingLength -= numCharacters;
         break;
       case false:
+        //this works for catching a cancel on last button
+        const numNumbersAgain = remainingLength;
+        console.log(`random numbers again: ${numNumbersAgain}`);
+        for (let i = 0; i < numNumbersAgain; i++) {
+          const numTwo = numbers[Math.floor(Math.random() * numbers.length)];
+          passwordParts.push(numTwo);
+        }
         break;
       case null:
         break;
@@ -292,14 +315,13 @@ function generatePasswordOnePointO(array) {
 
 // Write password to the #password input
 function writePassword() {
-  password = generateRandom(alphabet, numbers, symbols);
+  password = generateRandom();
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
   console.log(passwordText);
 }
 
-//Not needed for now
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
