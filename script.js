@@ -31,6 +31,96 @@ const alphabet = [
   "z",
 ];
 
+function generateRandom(array) {
+  let passwordParts = [];
+  const passwordLength = prompt(
+    "How long would you like your password to be? Must be between 8 and 128 characters"
+  );
+  console.log(`user selected: ${passwordLength}`);
+  if (passwordLength >= 8 && passwordLength <= 128) {
+    let remainingLength = passwordLength;
+
+    const addLowerLetters = confirm("Do you want to add lowercase letters?");
+    switch (addLowerLetters) {
+      case true:
+        const numLowerLetters = (getRandomInt(1,6));
+          console.log(`random lower: ${numLowerLetters}`);
+        for (let i = 0; i < numLowerLetters; i++) {
+          const lowerLetter =
+            alphabet[Math.floor(Math.random() * alphabet.length)];
+          passwordParts.push(lowerLetter);
+        }
+        remainingLength -= numLowerLetters;
+        console.log(`remaining length: ${remainingLength}`);
+        break;
+      case false:
+        break;
+      case null:
+        break;
+    }
+
+    const addUpperLetters = confirm("Do you want to add uppercase letters?");
+    switch (addUpperLetters) {
+      case true:
+        const numUpperLetters = (getRandomInt(1,6));
+        console.log(`random uppers: ${numUpperLetters}`);
+        for (let i = 0; i < numUpperLetters; i++) {
+          const upperLetter =
+            alphabet[Math.floor(Math.random() * alphabet.length)].toUpperCase();
+          passwordParts.push(upperLetter);
+        }
+        remainingLength -= numUpperLetters;
+        break;
+      case false:
+        break;
+      case null:
+        break;
+    }
+
+    const addNumbers = confirm("Do you want to add numbers?");
+    switch (addNumbers) {
+      case true:
+        const numNumbers = (getRandomInt(1,6));
+        console.log(`randome numbers: ${numNumbers}`);
+        for (let i = 0; i < numNumbers; i++) {
+          const num = numbers[Math.floor(Math.random() * numbers.length)];
+          passwordParts.push(num);
+        }
+        remainingLength -= numNumbers;
+        break;
+      case false:
+        break;
+      case null:
+        break;
+    }
+
+    const addCharacters = confirm("Do you want to add special characters?");
+    switch (addCharacters) {
+      case true:
+        const numCharacters = remainingLength;
+        console.log(`random chars: ${numCharacters}`);
+        for (let i = 0; i < numCharacters; i++) {
+          const char = symbols[Math.floor(Math.random() * symbols.length)];
+          passwordParts.push(char);
+        }
+        remainingLength -= numCharacters;
+        break;
+      case false:
+        break;
+      case null:
+        break;
+    }
+
+    shuffle(passwordParts);
+    const password = passwordParts.join("");
+    return password;
+  } else {
+    return confirm("Password length must be at least 8 characters!");
+  }
+}
+
+//make another function that will randomly assign the items based on selection, then let user choose
+//to randomly generate or specify the exact types
 function generatePassword(array) {
   let passwordParts = [];
   const passwordLength = prompt(
@@ -108,30 +198,28 @@ function generatePassword(array) {
     }
     const addCharacters = confirm("Do you want to add special characters?");
     if (addCharacters === true) {
-
-    switch (addCharacters) {
-      case true:
-        const numCharacters = prompt(
-          "How many special characters would you like to add?"
-        );
-        if (numCharacters === null) {
-          break;
-        } else {
-          for (let index = 0; index < numCharacters; index++) {
-            const char = symbols[Math.floor(Math.random() * symbols.length)];
-            passwordParts.push(char);
+      switch (addCharacters) {
+        case true:
+          const numCharacters = prompt(
+            "How many special characters would you like to add?"
+          );
+          if (numCharacters === null) {
+            break;
+          } else {
+            for (let index = 0; index < numCharacters; index++) {
+              const char = symbols[Math.floor(Math.random() * symbols.length)];
+              passwordParts.push(char);
+            }
+            break;
           }
+        case false:
           break;
-        }
-      case false:
-        break;
-      case null:
-        break;
+        case null:
+          break;
+      }
+    } else {
+      return alert("Please select at least one category");
     }
-  }
-  else {
-    return alert("Please select at least one category");
-  }
 
     shuffle(passwordParts);
     const password = passwordParts.join("");
@@ -143,7 +231,7 @@ function generatePassword(array) {
 
 //break//
 
-//this function works but it's not quite what i'm looking for (above function getPasswords plural is better)
+//this function works but it's not quite what i'm looking for (above function getPassword  is better)
 function generatePasswordOnePointO(array) {
   const passwordLength = prompt(
     "How long would you like your password to be? Must be between 8 and 128 characters"
@@ -204,15 +292,18 @@ function generatePasswordOnePointO(array) {
 
 // Write password to the #password input
 function writePassword() {
-  password = generatePassword(alphabet, numbers, symbols);
+  password = generateRandom(alphabet, numbers, symbols);
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
   console.log(passwordText);
 }
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
+//Not needed for now
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
 }
 
 function shuffle(array) {
