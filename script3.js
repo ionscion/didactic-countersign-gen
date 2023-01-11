@@ -41,90 +41,57 @@ const chars = ["!", "@", "#", "$", "&", "%", "/"];
 var generateBtn = document.querySelector("#generate");
 var passwordText = document.querySelector("#password");
 
-
-
 function generateRandom(parameter, passwordLength) {
   let passwordParts = [];
-  let remainingLength = passwordLength;
-  console.log(`remaining length initial is ${remainingLength}`);
   switch (parameter.lowercase) {
     case true:
-      const numLowerLetters = getRandomInt(1, 6);
-      console.log(`numLowerLetters is: ${numLowerLetters}`);
-      if (remainingLength <= numLowerLetters) {
-        for (let i = 0; i < remainingLength; i++) {
-          const lowerLetter =
-            alphabet[Math.floor(Math.random() * alphabet.length)];
-          passwordParts.push(lowerLetter);
-          console.log(`remaining length ran`);
-        }
-        remainingLength--;
-      } else {
-        for (let i = 0; i < numLowerLetters; i++) {
-          const lowerLetter =
-            alphabet[Math.floor(Math.random() * alphabet.length)];
-          passwordParts.push(lowerLetter);
-          console.log(`else ran`);
-        }
-        remainingLength -= numLowerLetters;
+      for (let i = 0; i < passwordLength; i++) {
+        const lowCase = alphabet[Math.floor(Math.random() * alphabet.length)];
+        passwordParts.push(lowCase);
       }
       break;
     case false:
-      break;
-    case null:
       break;
   }
   switch (parameter.uppercase) {
     case true:
-      //temp changed to remaininglength
-      const numUpperLetters = getRandomInt(1, 4);
-      console.log(`numUpperLetters is: ${numUpperLetters}`);
-      for (let i = 0; i < numUpperLetters; i++) {
-        const upperLetter =
+      for (let i = 0; i < passwordLength; i++) {
+        const upCase =
           alphabet[Math.floor(Math.random() * alphabet.length)].toUpperCase();
-        passwordParts.push(upperLetter);
+        passwordParts.push(upCase);
       }
-      remainingLength -= numUpperLetters;
       break;
     case false:
-      break;
-    case null:
       break;
   }
   switch (parameter.numbers) {
     case true:
-      const numNumbers = getRandomInt(1, 4);
-      console.log(`numNumbers is: ${numNumbers}`);
-      for (let i = 0; i < numNumbers; i++) {
-        const numb = numList[Math.floor(Math.random() * numList.length)];
-        passwordParts.push(numb);
+      for (let i = 0; i < passwordLength; i++) {
+        const num = numList[Math.floor(Math.random() * numList.length)];
+        passwordParts.push(num);
       }
-      remainingLength -= numNumbers;
       break;
     case false:
-      break;
-    case null:
       break;
   }
   switch (parameter.symbols) {
     case true:
-      const numSymbols = remainingLength;
-      console.log(`numSymbols is: ${numSymbols}`);
-      for (let i = 0; i < numSymbols; i++) {
-        const symb = chars[Math.floor(Math.random() * chars.length)];
-        passwordParts.push(symb);
+      for (let i = 0; i < passwordLength; i++) {
+        const sym = chars[Math.floor(Math.random() * chars.length)];
+        passwordParts.push(sym);
       }
-      console.log(passwordParts);
       break;
     case false:
       break;
-    case null:
-      break;
   }
-
+  console.log(passwordParts);
   shuffle(passwordParts);
-  const password = passwordParts.join("");
-  console.log(`your password is: ${password}, password length is ${password.length}`);
+  const tempPassword = passwordParts.join("");
+  console.log(tempPassword);
+  const password = tempPassword.slice(0, passwordLength);
+  console.log(
+    `your password is: ${password}, password length is ${password.length}`
+  );
   passwordText.value = password;
 }
 
@@ -150,8 +117,6 @@ function getSelect() {
   }
 }
 
-//need function for remaining length check?
-
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -162,13 +127,6 @@ function shuffle(array) {
   for (let index = array.length - 1; index > 0; index--) {
     const j = Math.floor(Math.random() * (index + 1));
     [array[index], array[j]] = [array[j], array[index]];
-  }
-}
-
-function remLength() {
-  if (numToIterate < remainingLength) {
-  } else {
-    var length = remainingLength;
   }
 }
 generateBtn.addEventListener("click", getSelect);
