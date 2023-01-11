@@ -7,7 +7,7 @@ class Selection {
   }
 }
 
-const numList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+const numList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 const alphabet = [
   "a",
   "b",
@@ -36,14 +36,19 @@ const alphabet = [
   "y",
   "z",
 ];
-const chars = ["!", "@", "#", "$", "&", "%", "/"];
 
-var generateBtn = document.querySelector("#generate");
-var passwordText = document.querySelector("#password");
+const chars = ["!", "@", "#", "$", "&", "%", "/","<",">","|","{","}","[","]","-","+","*",":",";"];
+
+let generateBtn = document.querySelector("#generate");
+let passwordText = document.querySelector("#password");
 //arrays for each component part? then figure out how to use password length to iterate per array?
 
 function generateRandom(parameter, passwordLength) {
   let passwordParts = [];
+  if (parameter.lowercase === false && parameter.uppercase===false && parameter.numbers=== false && parameter.symbols===false) {
+    alert("Please select at least one category!");
+        passwordText.value = "Please try again!";
+  } else {
   switch (parameter.lowercase) {
     case true:
       for (let i = 0; i < passwordLength; i++) {
@@ -85,6 +90,7 @@ function generateRandom(parameter, passwordLength) {
     case false:
       break;
   }
+
   console.log(passwordParts);
   shuffle(passwordParts);
   const tempPassword = passwordParts.join("");
@@ -94,9 +100,11 @@ function generateRandom(parameter, passwordLength) {
     `your password is: ${password}, password length is ${password.length}`
   );
   passwordText.value = password;
+  } 
 }
 
-function getSelect() {
+
+function getSelection() {
   const passwordLength = prompt(
     "How long would you like your password to be? Must be between 8 and 128 Characters"
   );
@@ -130,4 +138,4 @@ function shuffle(array) {
     [array[index], array[j]] = [array[j], array[index]];
   }
 }
-generateBtn.addEventListener("click", getSelect);
+generateBtn.addEventListener("click", getSelection);
