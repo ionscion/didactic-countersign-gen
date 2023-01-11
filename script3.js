@@ -40,6 +40,7 @@ const chars = ["!", "@", "#", "$", "&", "%", "/"];
 
 var generateBtn = document.querySelector("#generate");
 var passwordText = document.querySelector("#password");
+//arrays for each component part? then figure out how to use password length to iterate per array?
 
 function generateRandom(parameter, passwordLength) {
   let passwordParts = [];
@@ -102,10 +103,10 @@ function getSelect() {
   console.log(`user selected length of ${passwordLength}`);
   if (passwordLength >= 8 && passwordLength <= 128) {
     const parameter = new Selection(
-      confirm("lowercase?"),
-      confirm("uppercase?"),
-      confirm("numbers?"),
-      confirm("special characters?")
+      confirm("Do you want to add lowercase letters?"),
+      confirm("Do you want to add uppercase letters?"),
+      confirm("Do you want to add numbers?"),
+      confirm("Do you want to add special characters?")
     );
     console.log(
       `parameter lcase value is ${parameter.lowercase}, parameter ucase value is ${parameter.uppercase}, parameter number value is ${parameter.numbers}, parameter symbol value is ${parameter.symbols}`
