@@ -5,9 +5,31 @@ class Selection {
     this.numbers = numbers;
     this.symbols = symbols;
   }
+
+  numberOfVariables() {
+    let numberOfSelections = 0;
+    switch (this.lowercase) {
+      case true:
+        numberOfSelections++;
+    }
+    switch (this.uppercase) {
+      case true:
+        numberOfSelections++;
+    }
+    switch (this.numbers) {
+      case true:
+        numberOfSelections++;
+    }
+    switch (this.symbols) {
+      case true:
+        numberOfSelections++;
+    }
+    console.log(`number of object variables: ${numberOfSelections}`);
+    return numberOfSelections;
+  }
 }
 
-const numList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+const numList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 const alphabet = [
   "a",
   "b",
@@ -45,13 +67,15 @@ let passwordText = document.querySelector("#password");
 
 function generateRandom(parameter, passwordLength) {
   let passwordParts = [];
+    let availLength = passwordLength/parameter.numberOfVariables();
   if (parameter.lowercase === false && parameter.uppercase===false && parameter.numbers=== false && parameter.symbols===false) {
     alert("Please select at least one category!");
         passwordText.value = "Please try again!";
   } else {
+    
   switch (parameter.lowercase) {
     case true:
-      for (let i = 0; i < passwordLength; i++) {
+      for (let i = 0; i < availLength; i++) {
         const lowCase = alphabet[Math.floor(Math.random() * alphabet.length)];
         passwordParts.push(lowCase);
       }
@@ -61,7 +85,7 @@ function generateRandom(parameter, passwordLength) {
   }
   switch (parameter.uppercase) {
     case true:
-      for (let i = 0; i < passwordLength; i++) {
+      for (let i = 0; i < availLength; i++) {
         const upCase =
           alphabet[Math.floor(Math.random() * alphabet.length)].toUpperCase();
         passwordParts.push(upCase);
@@ -72,7 +96,7 @@ function generateRandom(parameter, passwordLength) {
   }
   switch (parameter.numbers) {
     case true:
-      for (let i = 0; i < passwordLength; i++) {
+      for (let i = 0; i < availLength; i++) {
         const num = numList[Math.floor(Math.random() * numList.length)];
         passwordParts.push(num);
       }
@@ -82,7 +106,7 @@ function generateRandom(parameter, passwordLength) {
   }
   switch (parameter.symbols) {
     case true:
-      for (let i = 0; i < passwordLength; i++) {
+      for (let i = 0; i < availLength; i++) {
         const sym = chars[Math.floor(Math.random() * chars.length)];
         passwordParts.push(sym);
       }
@@ -90,19 +114,21 @@ function generateRandom(parameter, passwordLength) {
     case false:
       break;
   }
+  
 
-  console.log(passwordParts);
+  
   shuffle(passwordParts);
-  const tempPassword = passwordParts.join("");
-  console.log(tempPassword);
-  const password = tempPassword.slice(0, passwordLength);
+  console.log(passwordParts);
+  let tempPassword = passwordParts.slice(0, passwordLength);
+//   shuffle(tempPassword);
+//   console.log(`tempPW is ${tempPassword}`);
+  const password = tempPassword.join("");
   console.log(
     `your password is: ${password}, password length is ${password.length}`
   );
   passwordText.value = password;
   } 
 }
-
 
 function getSelection() {
   const passwordLength = prompt(
@@ -124,12 +150,6 @@ function getSelection() {
     alert("Please try again, password must be between 8 and 128 characters!");
     passwordText.value = "Please try again!";
   }
-}
-
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min);
 }
 
 function shuffle(array) {
