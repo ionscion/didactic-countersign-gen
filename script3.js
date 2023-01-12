@@ -8,22 +8,10 @@ class Selection {
 
   numberOfVariables() {
     let numberOfSelections = 0;
-    switch (this.lowercase) {
-      case true:
-        numberOfSelections++;
-    }
-    switch (this.uppercase) {
-      case true:
-        numberOfSelections++;
-    }
-    switch (this.numbers) {
-      case true:
-        numberOfSelections++;
-    }
-    switch (this.symbols) {
-      case true:
-        numberOfSelections++;
-    }
+    this.lowercase && numberOfSelections++;
+    this.uppercase && numberOfSelections++;
+    this.numbers && numberOfSelections++;
+    this.symbols && numberOfSelections++;
     console.log(`number of object variables: ${numberOfSelections}`);
     return numberOfSelections;
   }
@@ -113,15 +101,10 @@ function generateRandom(parameter, passwordLength) {
       break;
     case false:
       break;
-  }
-  
-
-  
+  }  
   shuffle(passwordParts);
   console.log(passwordParts);
   let tempPassword = passwordParts.slice(0, passwordLength);
-//   shuffle(tempPassword);
-//   console.log(`tempPW is ${tempPassword}`);
   const password = tempPassword.join("");
   console.log(
     `your password is: ${password}, password length is ${password.length}`
