@@ -67,6 +67,7 @@ function generateRandom(parameter, passwordLength) {
         const lowCase = alphabet[Math.floor(Math.random() * alphabet.length)];
         passwordParts.push(lowCase);
       }
+      // iterator(alphabet, passwordLength);
       break;
     case false:
       break;
@@ -141,4 +142,14 @@ function shuffle(array) {
     [array[index], array[j]] = [array[j], array[index]];
   }
 }
+
+// function iterator(array, passwordLength) {
+//   let availLength = passwordLength/parameter.numberOfVariables();
+//   for (let index = 0; index < availLength; index++) {
+//     const element = array[Math.floor(Math.random() * array.length)];
+//     passwordParts.push(element);
+//   }
+// }
+
+
 generateBtn.addEventListener("click", getSelection);
