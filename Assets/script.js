@@ -55,8 +55,6 @@ let passwordText = document.querySelector("#password");
 function generateRandom(parameter, passwordLength) {
   
   let guaranteedChars = [];
-    let availLength = passwordLength/parameter.numberOfVariables();
-    console.log(`avail is ${availLength}`);
   if (parameter.lowercase === false && parameter.uppercase===false && parameter.numbers=== false && parameter.symbols===false) {
     alert("Please select at least one category!");
         passwordText.value = "Please try again!";
@@ -147,6 +145,5 @@ function iterator(array, parameter, passwordLength) {
     passwordParts.push(element);
   }
 }
-
 
 generateBtn.addEventListener("click", getSelection);
