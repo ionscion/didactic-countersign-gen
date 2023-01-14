@@ -34,67 +34,25 @@ WHEN the password is generated
 THEN the password is either displayed in an alert or written to the page
 ```
 
-## Mock-Up
+## Notes and Description of Work
+Message will be displayed when the user selects a password length of less than 8 and greater than 128.
+I've set it up so that it will write the message "Please try again" in the password generator field. 
+An error message will also be displayed if the user doesn't select at least 1 of the 4 options for the password.
 
-The following image shows the web application's appearance and functionality:
+I used a class to store the users 4 inputs from the getSelection function. This way the program knows how 
+many iterations to run based on how many inputs were selected up front. This is then passed into the generateRandom function
+which uses a switch case to iterate through the user's selections. There are 4 arrays which have the various choices available:
+lowercase, uppercase, numbers and special characters. I've included a guarantee clause to make sure that at least one character
+of each user input is written to the final password. Password array is shuffled several times to ensure randomness before final 
+password is generated and written to the display. 
 
-![The Password Generator application displays a red button to "Generate Password".](./Assets/03-javascript-homework-demo.png)
+## Screenshots of Final App
+![](./Assets/screenshots/Final-land.png)*Final landing page*
 
-## Grading Requirements
+* Here is what it looks like when the password is generated. In this case user selected length of 12 and all 4 variables:
 
-> **Note**: If a Challenge assignment submission is marked as “0”, it is considered incomplete and will not count towards your graduation requirements. Examples of incomplete submissions include the following:
->
-> * A repository that has no code
->
-> * A repository that includes a unique name but nothing else
->
-> * A repository that includes only a README file but nothing else
->
-> * A repository that only includes starter code
+![](./Assets/screenshots/Final-gen.png)*Final password generated*
 
-This Challenge is graded based on the following criteria: 
+## Deployed link
+Please find the deployed link here: https://ionscion.github.io/didactic-countersign-gen/
 
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the preceding acceptance criteria.
-
-### Deployment: 32%
-
-* Application deployed at live URL.
-
-* Application loads with no errors.
-
-* Application GitHub URL submitted.
-
-* GitHub repository that contains application code.
-
-### Application Quality: 15%
-
-* Application user experience is intuitive and easy to navigate.
-
-* Application user interface style is clean and polished.
-
-* Application resembles the mock-up functionality provided in the Challenge instructions.
-
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains quality readme file with description, screenshot, and link to deployed application.
-
-## Review
-
-You are required to submit the following for review:
-
-* The URL of the deployed application.
-
-* The URL of the GitHub repository, with a unique name and a readme describing the project.
-
-- - -
-© 2022 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
