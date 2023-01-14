@@ -16,7 +16,7 @@ class Selection {
     return numberOfSelections;
   }
 }
-
+let passwordParts = [];
 const numList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 const alphabet = [
   "a",
@@ -46,16 +46,17 @@ const alphabet = [
   "y",
   "z",
 ];
-
+const upCase = alphabet.map((char)=> char.toUpperCase());
 const chars = ["!", "@", "#", "$", "&", "%", "/","<",">","|","{","}","[","]","-","+","*",":",";"];
 
 let generateBtn = document.querySelector("#generate");
 let passwordText = document.querySelector("#password");
-//arrays for each component part? then figure out how to use password length to iterate per array?
 
 function generateRandom(parameter, passwordLength) {
-  let passwordParts = [];
+  
+  let guaranteedChars = [];
     let availLength = passwordLength/parameter.numberOfVariables();
+    console.log(`avail is ${availLength}`);
   if (parameter.lowercase === false && parameter.uppercase===false && parameter.numbers=== false && parameter.symbols===false) {
     alert("Please select at least one category!");
         passwordText.value = "Please try again!";
@@ -63,54 +64,50 @@ function generateRandom(parameter, passwordLength) {
     
   switch (parameter.lowercase) {
     case true:
-      for (let i = 0; i < availLength; i++) {
-        const lowCase = alphabet[Math.floor(Math.random() * alphabet.length)];
-        passwordParts.push(lowCase);
-      }
-      // iterator(alphabet, passwordLength);
+      iterator(alphabet,parameter, passwordLength);
+      guaranteedChars.push(alphabet[Math.floor(Math.random() * alphabet.length)]);
       break;
     case false:
       break;
   }
   switch (parameter.uppercase) {
     case true:
-      for (let i = 0; i < availLength; i++) {
-        const upCase =
-          alphabet[Math.floor(Math.random() * alphabet.length)].toUpperCase();
-        passwordParts.push(upCase);
-      }
+      iterator(upCase,parameter, passwordLength);
+      guaranteedChars.push(upCase[Math.floor(Math.random() * upCase.length)]);
       break;
     case false:
       break;
   }
   switch (parameter.numbers) {
     case true:
-      for (let i = 0; i < availLength; i++) {
-        const num = numList[Math.floor(Math.random() * numList.length)];
-        passwordParts.push(num);
-      }
+      iterator(numList,parameter, passwordLength);
+      guaranteedChars.push(numList[Math.floor(Math.random() * numList.length)]);
       break;
     case false:
       break;
   }
   switch (parameter.symbols) {
     case true:
-      for (let i = 0; i < availLength; i++) {
-        const sym = chars[Math.floor(Math.random() * chars.length)];
-        passwordParts.push(sym);
-      }
+      iterator(chars,parameter, passwordLength);
+      guaranteedChars.push(chars[Math.floor(Math.random() * chars.length)]);
       break;
     case false:
       break;
   }  
   shuffle(passwordParts);
   console.log(passwordParts);
+  console.log(`guaranteed ${guaranteedChars}`);
   let tempPassword = passwordParts.slice(0, passwordLength);
+  for (let index = 0; index < guaranteedChars.length; index++) {
+    tempPassword[index]=guaranteedChars[index];
+  }
+  shuffle(tempPassword);
   const password = tempPassword.join("");
   console.log(
     `your password is: ${password}, password length is ${password.length}`
   );
   passwordText.value = password;
+  passwordParts=[];
   } 
 }
 
@@ -143,13 +140,13 @@ function shuffle(array) {
   }
 }
 
-// function iterator(array, passwordLength) {
-//   let availLength = passwordLength/parameter.numberOfVariables();
-//   for (let index = 0; index < availLength; index++) {
-//     const element = array[Math.floor(Math.random() * array.length)];
-//     passwordParts.push(element);
-//   }
-// }
+function iterator(array, parameter, passwordLength) {
+  let availLength = passwordLength/parameter.numberOfVariables();
+  for (let index = 0; index < availLength; index++) {
+    let element = array[Math.floor(Math.random() * array.length)];
+    passwordParts.push(element);
+  }
+}
 
 
 generateBtn.addEventListener("click", getSelection);
